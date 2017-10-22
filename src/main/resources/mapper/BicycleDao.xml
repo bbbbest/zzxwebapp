@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zzx.dao.BicycleDao">
+    <resultMap type="Bicycle" id="BicycleResult">
+        <id column="bicycleId" jdbcType="INTEGER" property="bicycleId"/>
+        <result column="from" jdbcType="INTEGER" property="from"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time"/>
+        <result column="photoUrl" jdbcType="VARCHAR" property="photoUrl"/>
+        <result column="lockId" jdbcType="INTEGER" property="lockId"/>
+        <result column="locationX" jdbcType="DECIMAL" property="locationX"/>
+        <result column="locationY" jdbcType="DECIMAL" property="locationY"/>
+        <result column="status" jdbcType="BIT" property="status"/>
+        <result column="energy" jdbcType="REAL" property="energy"/>
+    </resultMap>
+    <insert id="insert" parameterType="Bicycle">
+        INSERT INTO bicycle
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bicycleId != null ">
+                bicycleId,
+            </if>
+            <if test="from != null ">
+                `from`,
+            </if>
+            <!--<if test="time != null ">-->
+            `time`,
+            <!--</if>-->
+            <if test="photoUrl != null ">
+                photoUrl,
+            </if>
+            <if test="lockId != null ">
+                lockId,
+            </if>
+            <if test="locationX != null ">
+                locationX,
+            </if>
+            <if test="locationY != null ">
+                locationY,
+            </if>
+            <if test="status != null ">
+                `status`,
+            </if>
+            <if test="energy != null ">
+                energy,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bicycleId != null ">
+                #{bicycleId,jdbcType=INTEGER},
+            </if>
+            <if test="from != null ">
+                #{from,jdbcType=INTEGER},
+            </if>
+            current_timestamp(),
+            <if test="photoUrl != null ">
+                #{photourl,jdbcType=VARCHAR},
+            </if>
+            <if test="lockId != null ">
+                #{lockid,jdbcType=INTEGER},
+            </if>
+            <if test="locationX != null ">
+                #{locationx,jdbcType=DECIMAL},
+            </if>
+            <if test="locationY != null ">
+                #{locationy,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null ">
+                #{status,jdbcType=BIT},
+            </if>
+            <if test="energy != null ">
+                #{energy,jdbcType=REAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByIdSelective">
+        UPDATE bicycle
+        <set>
+            <if test=" from != null ">
+                `from` = #{from,jdbcType=INTEGER},
+            </if>
+            <if test=" time != null ">
+                `time` = #{time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="photoUrl != null ">
+                photoUrl = #{photourl,jdbcType=VARCHAR},
+            </if>
+            <if test="lockId != null ">
+                lockId = #{lockid,jdbcType=INTEGER},
+            </if>
+            <if test="locationX != null ">
+                locationX = #{locationx,jdbcType=DECIMAL},
+            </if>
+            <if test="locationY != null ">
+                locationY = #{locationy,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null ">
+                `status` = #{status,jdbcType=BIT},
+            </if>
+            <if test="energy != null ">
+                energy = #{energy,jdbcType=REAL},
+            </if>
+        </set>
+        WHERE bicycleId = #{bicycleId,jdbcType=INTEGER}
+    </update>
+    <delete id="delete">
+        DELETE FROM bicycle
+        WHERE bicycleId = #{bicycleId}
+    </delete>
+    <select id="selectByPage" resultType="Bicycle">
+        SELECT *
+        FROM bicycle
+        LIMIT #{start}, #{pageSize}
+    </select>
+    <select id="select" resultType="Bicycle" resultMap="BicycleResult">
+        SELECT *
+        FROM bicycle
+        WHERE bicycleId = #{bicycleId}
+    </select>
+    <select id="selectByLockId" resultType="Bicycle" resultMap="BicycleResult">
+        SELECT *
+        FROM bicycle
+        WHERE lockId = #{lockId}
+    </select>
+    <select id="selectTotal" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM bicycle
+    </select>
+    <select id="selectIdByPrefix" resultType="java.lang.Integer">
+        SELECT bicycleId
+        FROM bicycle
+        WHERE bicycleId LIKE '#{prefix}%'
+    </select>
+    <select id="selectLockIdByPrefix" resultType="java.lang.Integer">
+        SELECT lockId
+        FROM bicycle
+        WHERE lockId LIKE '#{prefix}%'
+    </select>
+</mapper>

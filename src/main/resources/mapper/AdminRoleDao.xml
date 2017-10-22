@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zzx.dao.AdminRoleDao">
+    <resultMap id="AdminRoleResult" type="AdminRole">
+        <id column="adminRoleId" jdbcType="INTEGER" property="adminRoleId"/>
+        <result column="requireActivity" jdbcType="TINYINT" property="activityQuery"/>
+        <result column="requireAdmin" jdbcType="TINYINT" property="adminQuery"/>
+        <result column="requireAdvice" jdbcType="TINYINT" property="adviceQuery"/>
+        <result column="requireBicycle" jdbcType="TINYINT" property="bicycleQuery"/>
+        <result column="requireCyclingrecord" jdbcType="TINYINT" property="cyclingRecordQuery"/>
+        <result column="requireDealrecord" jdbcType="TINYINT" property="dealRecordQuery"/>
+        <result column="requireUser" jdbcType="TINYINT" property="userQuery"/>
+
+        <result column="updateActivity" jdbcType="TINYINT" property="activityUpdate"/>
+        <result column="updateAdmin" jdbcType="TINYINT" property="adminUpdate"/>
+        <result column="updateAdvice" jdbcType="TINYINT" property="adviceUpdate"/>
+        <result column="updateBicycle" jdbcType="TINYINT" property="bicycleUpdate"/>
+        <result column="updateCyclingrecord" jdbcType="TINYINT" property="cyclingRecordUpdate"/>
+        <result column="updateDealrecord" jdbcType="TINYINT" property="dealRecordUpdate"/>
+        <result column="updateUser" jdbcType="TINYINT" property="userUpdate"/>
+    </resultMap>
+    <select id="selectAll" useCache="true" resultMap="AdminRoleResult" resultType="AdminRole">
+        SELECT *
+        FROM adminrole
+    </select>
+    <select id="select" parameterType="AdminRole" useCache="true" resultMap="AdminRoleResult" resultType="AdminRole">
+        SELECT *
+        FROM adminrole
+        WHERE adminRoleId = #{adminRoleId}
+    </select>
+    <update id="update" parameterType="AdminRole" statementType="PREPARED" flushCache="true">
+        UPDATE adminrole
+        <set>
+            <if test="userQuery != null ">
+                requireUser = #{userQuery},
+            </if>
+            <if test="dealRecordQuery != null ">
+                requireDealrecord = #{dealRecordQuery},
+            </if>
+            <if test="cyclingRecordQuery != null ">
+                requireCyclingrecord = #{cyclingRecordQuery},
+            </if>
+            <if test="activityQuery != null ">
+                requireActivity = #{activityQuery},
+            </if>
+            <if test="adminQuery != null ">
+                requireAdmin = #{adminQuery},
+            </if>
+            <if test="bicycleQuery != null ">
+                requireBicycle = #{bicycleQuery},
+            </if>
+            <if test="adviceQuery != null ">
+                requireAdvice = #{adviceQuery},
+            </if>
+
+            <if test="userUpdate != null ">
+                updateUser= #{userUpdate},
+            </if>
+            <if test="dealRecordUpdate != null ">
+                updateDealrecord = #{dealRecordUpdate},
+            </if>
+            <if test="cyclingRecordUpdate != null ">
+                updateCyclingrecord = #{cyclingRecordUpdate},
+            </if>
+            <if test="activityUpdate != null ">
+                updateActivity = #{activityUpdate},
+            </if>
+            <if test="adminUpdate != null ">
+                updateAdmin = #{adminUpdate},
+            </if>
+            <if test="bicycleUpdate != null ">
+                updateBicycle = #{bicycleUpdate},
+            </if>
+            <if test="adviceUpdate != null ">
+                updateAdvice = #{adviceUpdate}
+            </if>
+        </set>
+        WHERE adminRoleId = #{adminRoleId}
+    </update>
+    <delete id="delete" parameterType="AdminRole" statementType="PREPARED" flushCache="true">
+        DELETE FROM adminrole
+        WHERE adminRoleId = #{adminRoleId}
+    </delete>
+</mapper>

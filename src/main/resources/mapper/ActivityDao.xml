@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zzx.dao.ActivityDao">
+    <resultMap type="Activity" id="ActivityResult">
+        <id column="activityId" jdbcType="INTEGER" property="activityId"/>
+        <result column="userId" jdbcType="INTEGER" property="userId"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="startTime" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="endTime" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="replyContent" jdbcType="VARCHAR" property="replyContent"/>
+    </resultMap>
+    <insert id="insert" parameterType="Activity" statementType="PREPARED" keyColumn="activityId" flushCache="true">
+        # 需要在业务层检查数据合法性
+        INSERT INTO activity
+        (userId, title, createTime, startTime, endTime, description, status,
+        <if test="replyContent != null">
+            replyContent
+        </if>
+        )
+        VALUES
+        (#{userId}, #{title}, #{createTime}, #{startTime}, #{endTime}, #{description}, #{status},
+        <if test="replyContent != null">
+            #{replyContent}
+        </if>)
+    </insert>
+
+    <update id="updateSelective" parameterType="Activity" statementType="PREPARED" flushCache="true">
+        UPDATE activity
+        <set>
+            <if test="title != null ">
+                title = #{title, jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null ">
+                startTime = #{startTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null ">
+                endTime = #{endTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null ">
+                description = #{description, jdbcType=VARCHAR},
+            </if>
+            <if test="status != null ">
+                status = #{status, jdbcType=TINYINT},
+            </if>
+            <if test="replyContent != null ">
+                replyContent = #{replyContent, jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE activityId = #{activityId, jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByPage" resultType="cn.zzx.bean.Activity">
+        SELECT *
+        FROM activity
+        LIMIT #{start}, #{pageSize}
+    </select>
+    <select id="selectSelective" resultType="Activity" statementType="PREPARED" resultMap="ActivityResult">
+#       TODO
+    </select>
+    <delete id="delete" parameterType="Activity" statementType="PREPARED" flushCache="true">
+        DELETE FROM activity
+        WHERE activityId = #{activityId}
+    </delete>
+</mapper>

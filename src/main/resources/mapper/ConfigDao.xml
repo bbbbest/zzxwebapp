@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zzx.dao.ConfigDao">
+    <select id="select" resultType="Config" useCache="true" statementType="PREPARED">
+        SELECT *
+        FROM config
+    </select>
+    <update id="update" parameterType="Config" flushCache="true">
+        UPDATE config
+        SET price = #{price}
+    </update>
+</mapper>

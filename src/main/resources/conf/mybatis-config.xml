@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 命名空间 -->
+    <typeAliases>
+        <typeAlias type="cn.zzx.bean.Activity" alias="Activity"/>
+        <typeAlias type="cn.zzx.bean.Admin" alias="Admin"/>
+        <typeAlias type="cn.zzx.bean.AdminRole" alias="AdminRole"/>
+        <typeAlias type="cn.zzx.bean.Advice" alias="Advice"/>
+        <typeAlias type="cn.zzx.bean.Bicycle" alias="Bicycle"/>
+        <typeAlias type="cn.zzx.bean.Config" alias="Config"/>
+        <typeAlias type="cn.zzx.bean.CyclingRecord" alias="CyclingRecord"/>
+        <typeAlias type="cn.zzx.bean.DealRecord" alias="DealRecord"/>
+        <typeAlias type="cn.zzx.bean.User" alias="User"/>
+        <typeAlias type="cn.zzx.bean.UserInfo" alias="UserInfo"/>
+    </typeAliases>
+</configuration>

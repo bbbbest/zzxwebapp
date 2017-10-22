@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zzx.dao.DealRecordDao">
+
+    <resultMap id="DealRecordResult" type="DealRecord">
+        <id column="dealRecordId" jdbcType="INTEGER" property="dealRecordId"/>
+        <result column="userId" jdbcType="INTEGER" property="userId"/>
+        <result column="actionType" jdbcType="TINYINT" property="actionType"/>
+        <result column="money" jdbcType="DECIMAL" property="money"/>
+        <result column="actionTime" jdbcType="TIMESTAMP" property="actionTime"/>
+        <result column="curbalance" jdbcType="DECIMAL" property="curBalance"/>
+        <result column="alipayStatus" jdbcType="TINYINT" property="alipayStatus"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="DealRecord" flushCache="true" statementType="PREPARED">
+        INSERT INTO dealrecord (userId, actionType, money, actionTime, curbalance, alipayStatus)
+        VALUES
+            (#{userId}, #{actionType}, #{money}, #{actionTime}, #{curBalance}, #{alipayStatus});
+    </insert>
+
+    <delete id="delete" parameterType="DealRecord" statementType="PREPARED" flushCache="true">
+        DELETE FROM dealrecord
+        WHERE dealRecordId = #{dealRecordId}
+    </delete>
+
+    <update id="updateStatus" parameterType="DealRecord" statementType="PREPARED" flushCache="true">
+        UPDATE dealrecord
+        SET alipayStatus = #{alipayStatus}
+        WHERE dealRecordId = #{dealRecordId};
+    </update>
+
+    <select id="selectByUserAndPage" resultType="DealRecord" resultMap="DealRecordResult" statementType="PREPARED">
+        SELECT *
+        FROM dealrecord
+        WHERE userId = #{user.userId}
+        ORDER BY actionTime DESC
+        LIMIT #{start}, #{pageSize}
+    </select>
+    <select id="select" resultType="DealRecord" parameterType="DealRecord">
+        SELECT *
+        FROM dealrecord
+        WHERE dealRecordId = #{dealRecordId}
+    </select>
+</mapper>

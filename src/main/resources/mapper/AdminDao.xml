@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zzx.dao.AdminDao">
+
+    <resultMap id="AdminResult" type="Admin">
+        <id column="adminId" jdbcType="INTEGER" property="adminId"/>
+        <result column="userName" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="adminRoleId" jdbcType="INTEGER" property="adminRoleId"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="Admin" statementType="PREPARED">
+        INSERT INTO admin (userName, password, name
+        <if test="adminRoleId != null ">
+            ,adminRoleId
+        </if>
+        )
+        VALUES (#{username}, #{password}, #{name}
+        <if test="adminRoleId != null ">
+            , #{adminRoleId}
+        </if>
+        );
+    </insert>
+
+    <delete id="delete" parameterType="Admin" statementType="PREPARED">
+        DELETE FROM admin
+        WHERE adminId = #{adminId}
+    </delete>
+
+    <update id="update" parameterType="Admin" statementType="PREPARED">
+        UPDATE admin
+        <set>
+            <if test="adminRoleId">
+                `adminRoleId` = #{adminRoleId},
+            </if>
+            <if test="username">
+                `username` = #{username},
+            </if>
+            <if test="password">
+                `password` = #{password},
+            </if>
+            <if test="name">
+                `name` = #{name},
+            </if>
+        </set>
+        WHERE adminId = #{adminId}
+    </update>
+
+    <select id="selectByUsernameAndPassword" resultType="Admin" statementType="PREPARED">
+        SELECT *
+        FROM admin
+        WHERE username = #{username} AND password = #{password}
+    </select>
+
+    <select id="selectAll" resultType="Admin" statementType="PREPARED" useCache="true">
+        SELECT *
+        FROM admin
+    </select>
+
+    <select id="select" parameterType="Admin" resultType="Admin" statementType="PREPARED">
+        SELECT *
+        FROM admin
+        WHERE adminId = #{adminId}
+    </select>
+
+    <select id="selectTotal" resultType="int">
+        SELECT count(*)
+        FROM admin
+    </select>
+</mapper>
