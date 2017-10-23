@@ -1,5 +1,6 @@
 package cn.zzx.util;
 
+import cn.zzx.bean.Validatable;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -293,10 +294,16 @@ public class JsonWrapper {
         JSONObject temp = new JSONObject();
         Class cls = pojo.getClass();
         Field[] fields = cls.getDeclaredFields();
+        Object obj;
         for (Field field : fields) {
             field.setAccessible(true);
             try {
-                temp.put(field.getName(), field.get(pojo));
+                if (field.getType().getInterfaces()[0] == Validatable.class) {
+                    temp.put(field.getName(), parseFromObject(field.get(pojo)));
+                } else {
+                    obj = field.get(pojo);
+                    temp.put(field.getName(),  obj == null? "null" : obj.toString());
+                }
             } catch (IllegalAccessException e) {
                 temp.put(field.getName(), null);
             }
@@ -475,6 +482,16 @@ public class JsonWrapper {
      */
     public static void setObjectsForArray(JSONArray jsonArray, Collection<?> pojos) {
         jsonArray.addAll(parseFromCollection(pojos));
+    }
+
+    public static JSONArray parseFromListOfBaseType(String key, Collection<?> bases) {
+        JSONArray array = new JSONArray();
+        for (Object o : bases) {
+            JSONObject object = new JSONObject();
+            object.put(key, o.toString());
+            array.add(object);
+        }
+        return array;
     }
 
     private boolean dataEmpty() {

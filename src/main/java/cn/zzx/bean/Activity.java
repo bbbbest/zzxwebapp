@@ -37,12 +37,12 @@ public class Activity implements Validatable {
 
     @Override
     public boolean canInsert() {
-        return activityId == null && ObjectUtil.nonNull(userId, title, createTime, startTime, endTime, description);
+        return activityId == null && ObjectUtil.allNonNull(userId, title, createTime, startTime, endTime, description);
     }
 
     @Override
     public boolean canUpdate() {
-        return ObjectUtil.nonNull(activityId, userId, title, createTime, startTime, endTime, description);
+        return ObjectUtil.allNonNull(activityId, userId, title, createTime, startTime, endTime, description);
     }
 
     @Override

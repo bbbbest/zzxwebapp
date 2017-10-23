@@ -24,7 +24,7 @@ public interface AdminService {
     /**
      * 查找所有管理员
      *
-     * @return 所有管理员
+     * @return 所有管理员 list
      */
     List<Admin> findAll();
 
@@ -35,7 +35,7 @@ public interface AdminService {
      * @param password 密码
      * @param name     姓名
      * @param roleId   权限ID
-     * @return the boolean
+     * @return 操作结果 boolean
      */
     boolean save(String username, String password, String name, Integer roleId);
 
@@ -43,7 +43,7 @@ public interface AdminService {
      * 根据管理员ID删除管理员
      *
      * @param id the 管理员ID
-     * @return the boolean
+     * @return 操作结果 boolean
      */
     boolean delete(Integer id);
 
@@ -53,7 +53,7 @@ public interface AdminService {
      * @param adminId 管理员ID
      * @param name    管理员姓名
      * @param roleId  权限ID
-     * @return the boolean
+     * @return 操作结果 boolean
      */
     boolean update(Integer adminId, String name, Integer roleId);
 
@@ -62,7 +62,7 @@ public interface AdminService {
      *
      * @param adminId  管理员ID
      * @param password 新密码
-     * @return the boolean
+     * @return 操作结果 boolean
      */
     boolean update(Integer adminId, String password);
 }

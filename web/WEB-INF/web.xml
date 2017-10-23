@@ -35,7 +35,7 @@
     <!--SpringMVC初始化-->
     <servlet>
         <servlet-name>adminServlet</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <servlet-class>cn.zzx.web.AdminDispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:conf/spring-mvc-admin.xml</param-value>

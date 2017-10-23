@@ -22,7 +22,7 @@ public class Admin implements Validatable {
 
     @Override
     public boolean canInsert() {
-        return adminId == null && ObjectUtil.nonNull(username, password, name);
+        return adminId == null && ObjectUtil.allNonNull(username, password, name);
     }
 
     @Override

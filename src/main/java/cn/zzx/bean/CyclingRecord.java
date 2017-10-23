@@ -34,7 +34,7 @@ public class CyclingRecord implements Validatable {
 
     @Override
     public boolean canUpdate() {
-        return ObjectUtil.nonNull(cyclingRecordId, bicycleId, userId, startTime, endTime, startLocX, startLocY, endLocX, endLocY);
+        return ObjectUtil.allNonNull(cyclingRecordId, bicycleId, userId, startTime, endTime, startLocX, startLocY, endLocX, endLocY);
     }
 
     @Override

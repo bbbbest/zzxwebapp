@@ -32,12 +32,12 @@ public class DealRecord implements Validatable {
 
     @Override
     public boolean canInsert() {
-        return dealRecordId != null && ObjectUtil.nonNull(userId, actionType, money, actionTime, curBalance, alipayStatus) && actionType == 1;
+        return dealRecordId != null && ObjectUtil.allNonNull(userId, actionType, money, actionTime, curBalance, alipayStatus) && actionType == 1;
     }
 
     @Override
     public boolean canUpdate() {
-        return ObjectUtil.nonNull(dealRecordId, alipayStatus);
+        return ObjectUtil.allNonNull(dealRecordId, alipayStatus);
     }
 
     @Override

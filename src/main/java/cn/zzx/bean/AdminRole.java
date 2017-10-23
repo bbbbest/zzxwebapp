@@ -32,7 +32,7 @@ public class AdminRole implements Validatable {
 
     @Override
     public boolean canInsert() {
-        return adminRoleId == null && ObjectUtil.nonNull(
+        return adminRoleId == null && ObjectUtil.allNonNull(
                 userQuery, userUpdate,
                 activityQuery, activityUpdate,
                 adminQuery, adminUpdate,
@@ -44,7 +44,7 @@ public class AdminRole implements Validatable {
 
     @Override
     public boolean canUpdate() {
-        return ObjectUtil.nonNull(adminRoleId,
+        return ObjectUtil.allNonNull(adminRoleId,
                 userQuery, userUpdate,
                 activityQuery, activityUpdate,
                 adminQuery, adminUpdate,

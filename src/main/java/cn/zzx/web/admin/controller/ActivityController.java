@@ -3,31 +3,36 @@ package cn.zzx.web.admin.controller;
 import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author fzh
  * @since 2017/10/23
  */
 @RestController
+@RequestMapping("activities")
 public class ActivityController {
+
     // TODO
 
-    @GetMapping("activities")
-    public JSONObject get() {
+    @GetMapping
+    public JSONObject get(HttpServletRequest request, HttpServletResponse response) {
         return null;
     }
 
-    @PostMapping("activities")
-    public JSONObject post() {
+    @PostMapping
+    public JSONObject post(HttpServletRequest request, HttpServletResponse response) {
         return null;
     }
 
-    @PutMapping("activities")
-    public JSONObject put() {
+    @PutMapping
+    public JSONObject put(HttpServletRequest request, HttpServletResponse response) {
         return null;
     }
 
-    @DeleteMapping("activities")
-    public JSONObject delete() {
+    @DeleteMapping
+    public JSONObject delete(HttpServletRequest request, HttpServletResponse response) {
         return null;
     }
 }

@@ -28,12 +28,12 @@ public class Advice implements Validatable {
 
     @Override
     public boolean canInsert() {
-        return adviseId == null && ObjectUtil.nonNull(creator, title, content, createTime, status);
+        return adviseId == null && ObjectUtil.allNonNull(creator, title, content, createTime, status);
     }
 
     @Override
     public boolean canUpdate() {
-        return ObjectUtil.nonNull(adviseId, adminId, creator, title, content, createTime, status, replyTime, replyContent);
+        return ObjectUtil.allNonNull(adviseId, adminId, creator, title, content, createTime, status, replyTime, replyContent);
     }
 
     @Override

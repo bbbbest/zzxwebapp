@@ -24,26 +24,26 @@ public class Bicycle implements Validatable {
     private Integer lockId;
     private BigDecimal locationX;
     private BigDecimal locationY;
-    private Integer status;
+    private Byte status;
     private Float energy;
 
     @Override
     public boolean canInsert() {
-        return bicycleId == null && ObjectUtil.nonNull(from, time, photoUrl, lockId, status, energy);
+        return bicycleId == null && ObjectUtil.allNonNull(from, time, photoUrl, lockId, status, energy);
     }
 
     @Override
     public boolean canUpdate() {
-        return ObjectUtil.nonNull(bicycleId, from, time, photoUrl, lockId, locationX, locationY, status, energy);
+        return ObjectUtil.allNonNull(bicycleId, from, time, photoUrl, lockId, locationX, locationY, status, energy);
     }
 
     @Override
     public boolean canDelete() {
-        return ObjectUtil.nonNull(bicycleId, lockId);
+        return ObjectUtil.allNonNull(bicycleId, lockId);
     }
 
     @Override
     public boolean canSelect() {
-        return ObjectUtil.nonNull(bicycleId);
+        return ObjectUtil.leastOneNonNull(bicycleId, lockId);
     }
 }

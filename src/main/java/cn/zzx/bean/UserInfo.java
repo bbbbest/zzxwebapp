@@ -23,7 +23,7 @@ public class UserInfo implements Validatable {
 
     @Override
     public boolean canInsert() {
-        return ObjectUtil.nonNull(userId, name, school, major, department, phone);
+        return ObjectUtil.allNonNull(userId, name, school, major, department, phone);
     }
 
     @Override

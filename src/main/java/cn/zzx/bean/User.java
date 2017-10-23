@@ -30,12 +30,12 @@ public class User implements Validatable {
 
     @Override
     public boolean canInsert() {
-        return userId == null && ObjectUtil.nonNull(username, password, name, phone, status, balance);
+        return userId == null && ObjectUtil.allNonNull(username, password, name, phone, status, balance);
     }
 
     @Override
     public boolean canUpdate() {
-        return ObjectUtil.nonNull(userId, username, password, name, phone, status, balance);
+        return ObjectUtil.allNonNull(userId, username, password, name, phone, status, balance);
     }
 
     @Override

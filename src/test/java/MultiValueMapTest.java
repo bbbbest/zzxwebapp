@@ -1,6 +1,8 @@
 import cn.zzx.bean.AdminRole;
+import cn.zzx.bean.Bicycle;
 import cn.zzx.dao.AdminRoleDao;
 import cn.zzx.dao.AdviceDao;
+import cn.zzx.dao.BicycleDao;
 import cn.zzx.util.AdminRoleParser;
 import net.sf.json.JSONArray;
 import org.junit.Test;
@@ -26,6 +28,9 @@ public class MultiValueMapTest {
     @Qualifier("adviceDao")
     @Autowired
     private AdviceDao adviceDao;
+    @Qualifier("bicycleDao")
+    @Autowired
+    private BicycleDao bicycleDao;
 
     @Test
     public void mvmTest() throws Exception {
@@ -41,5 +46,10 @@ public class MultiValueMapTest {
     public void liii() throws Exception {
         System.out.println(adviceDao.selectByPage(0, 10));
 //        adviceDao.delete(Advice.builder().adviseId(1).build());
+    }
+
+    @Test
+    public void bicycle() throws Exception {
+        System.out.println(bicycleDao.selectIdByPrefix("1"));
     }
 }

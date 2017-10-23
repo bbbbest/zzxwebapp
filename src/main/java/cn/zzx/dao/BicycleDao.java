@@ -7,9 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 自行车的 dao 层操作，主要包括常用的增删改查
- * @author fzh & lj
- * @version 1.0
+ * The interface Bicycle dao.
+ * @author fzh
  */
 @Repository("bicycleDao")
 public interface BicycleDao {
@@ -22,7 +21,7 @@ public interface BicycleDao {
     int insert(Bicycle bicycle);
 
     /**
-     * Delete by id int.
+     * Delete int.
      *
      * @param bicycle the bicycle
      * @return the int
@@ -46,9 +45,8 @@ public interface BicycleDao {
      */
     List<Bicycle> selectByPage(@Param("start") int start, @Param("pageSize") int pageSize);
 
-
     /**
-     * Select by id bicycle.
+     * Select bicycle.
      *
      * @param bicycle the bicycle
      * @return the bicycle
@@ -56,15 +54,7 @@ public interface BicycleDao {
     Bicycle select(Bicycle bicycle);
 
     /**
-     * Select by lock id bicycle.
-     *
-     * @param lockId the lock id
-     * @return the bicycle
-     */
-    Bicycle selectByLockId(@Param("lockId") int lockId);
-
-    /**
-     * Select by id prefix list.
+     * Select id by prefix list.
      *
      * @param prefix the prefix
      * @return the list
@@ -72,7 +62,7 @@ public interface BicycleDao {
     List<Integer> selectIdByPrefix(@Param("prefix") String prefix);
 
     /**
-     * Select by lock id prefix list.
+     * Select lock id by prefix list.
      *
      * @param prefix the prefix
      * @return the list

@@ -57,7 +57,7 @@
                 #{photourl,jdbcType=VARCHAR},
             </if>
             <if test="lockId != null ">
-                #{lockid,jdbcType=INTEGER},
+                #{lockId,jdbcType=INTEGER},
             </if>
             <if test="locationX != null ">
                 #{locationx,jdbcType=DECIMAL},
@@ -76,17 +76,11 @@
     <update id="updateByIdSelective">
         UPDATE bicycle
         <set>
-            <if test=" from != null ">
-                `from` = #{from,jdbcType=INTEGER},
-            </if>
-            <if test=" time != null ">
-                `time` = #{time,jdbcType=TIMESTAMP},
-            </if>
             <if test="photoUrl != null ">
                 photoUrl = #{photourl,jdbcType=VARCHAR},
             </if>
             <if test="lockId != null ">
-                lockId = #{lockid,jdbcType=INTEGER},
+                lockId = #{lockId,jdbcType=INTEGER},
             </if>
             <if test="locationX != null ">
                 locationX = #{locationx,jdbcType=DECIMAL},
@@ -115,25 +109,30 @@
     <select id="select" resultType="Bicycle" resultMap="BicycleResult">
         SELECT *
         FROM bicycle
-        WHERE bicycleId = #{bicycleId}
-    </select>
-    <select id="selectByLockId" resultType="Bicycle" resultMap="BicycleResult">
-        SELECT *
-        FROM bicycle
-        WHERE lockId = #{lockId}
+        WHERE
+        <choose>
+            <when test="bicycleId != null">
+                bicycleId = #{bicycleId}
+            </when>
+            <when test="lockId != null">
+                lockId = #{lockId}
+            </when>
+        </choose>
     </select>
     <select id="selectTotal" resultType="java.lang.Integer">
         SELECT count(*)
         FROM bicycle
     </select>
     <select id="selectIdByPrefix" resultType="java.lang.Integer">
+        <bind name="p" value="prefix + '%'"/>
         SELECT bicycleId
         FROM bicycle
-        WHERE bicycleId LIKE '#{prefix}%'
+        WHERE cast(bicycleId AS CHAR) LIKE #{p}
     </select>
     <select id="selectLockIdByPrefix" resultType="java.lang.Integer">
+        <bind name="p" value="prefix + '%'"/>
         SELECT lockId
         FROM bicycle
-        WHERE lockId LIKE '#{prefix}%'
+        WHERE cast(lockId AS CHAR) LIKE #{p}
     </select>
 </mapper>
