@@ -1,8 +1,9 @@
 import cn.zzx.bean.AdminRole;
-import cn.zzx.bean.Bicycle;
 import cn.zzx.dao.AdminRoleDao;
 import cn.zzx.dao.AdviceDao;
 import cn.zzx.dao.BicycleDao;
+import cn.zzx.dao.UserDao;
+import cn.zzx.service.BicycleService;
 import cn.zzx.util.AdminRoleParser;
 import net.sf.json.JSONArray;
 import org.junit.Test;
@@ -25,12 +26,21 @@ public class MultiValueMapTest {
     @Qualifier("adminRoleDao")
     @Autowired
     private AdminRoleDao dao;
+
     @Qualifier("adviceDao")
     @Autowired
     private AdviceDao adviceDao;
+
     @Qualifier("bicycleDao")
     @Autowired
     private BicycleDao bicycleDao;
+
+    @Qualifier("userDao")
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private BicycleService bicycleService;
 
     @Test
     public void mvmTest() throws Exception {
@@ -51,5 +61,10 @@ public class MultiValueMapTest {
     @Test
     public void bicycle() throws Exception {
         System.out.println(bicycleDao.selectIdByPrefix("1"));
+    }
+
+    @Test
+    public void userTest() throws Exception {
+        System.out.println(bicycleService.saveOnUnregistered("Honey", "15856856565", 5));
     }
 }

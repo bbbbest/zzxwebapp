@@ -15,42 +15,59 @@ import java.util.List;
 @Repository("userDao")
 public interface UserDao {
     /**
-     * Insert int.
+     * 增加用户
      *
-     * @param user the user
-     * @return the int
+     * @param user 用户信息
+     * @return 更新条数
      */
     int insert(User user);
 
     /**
-     * Delete int.
+     * 删除用户
      *
-     * @param user the user
-     * @return the int
+     * @param user 用户信息
+     * @return 更新条数
      */
     int delete(User user);
 
     /**
-     * Update int.
+     * 更新用户信息
      *
-     * @param user the user
-     * @return the int
+     * @param user 用户信息
+     * @return 更新条数
      */
     int update(User user);
 
     /**
-     * Select total integer.
+     * 查询总共多少用户
      *
-     * @return the integer
+     * @return 用户数
      */
     Integer selectTotal();
 
     /**
-     * Select by page list.
+     * 按页查询用户
      *
-     * @param start    the start
-     * @param pageSize the page size
-     * @return the list
+     * @param start    起始页
+     * @param pageSize 页条目数
+     * @return 用户列表
      */
     List<User> selectByPage(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
+
+    /**
+     * 查找用户
+     *
+     * @param user 用户信息（只包含userId 或者 username）
+     * @return 查到的用户信息
+     */
+    User select(User user);
+
+    /**
+     * 用户登录时使用
+     *
+     * @param username 用户名
+     * @param password 用户密码
+     * @return 用户信息
+     */
+    User selectByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 }

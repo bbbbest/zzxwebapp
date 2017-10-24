@@ -29,7 +29,7 @@ public class Bicycle implements Validatable {
 
     @Override
     public boolean canInsert() {
-        return bicycleId == null && ObjectUtil.allNonNull(from, time, photoUrl, lockId, status, energy);
+        return bicycleId == null && ObjectUtil.allNonNull(from, photoUrl, lockId, status, energy);
     }
 
     @Override

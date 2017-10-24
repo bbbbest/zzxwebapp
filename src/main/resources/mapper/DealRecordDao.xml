@@ -14,7 +14,8 @@
         <result column="alipayStatus" jdbcType="TINYINT" property="alipayStatus"/>
     </resultMap>
 
-    <insert id="insert" parameterType="DealRecord" flushCache="true" statementType="PREPARED">
+    <insert id="insert" parameterType="DealRecord" flushCache="true" statementType="PREPARED" useGeneratedKeys="true"
+            keyProperty="dealRecordId">
         INSERT INTO dealrecord (userId, actionType, money, actionTime, curbalance, alipayStatus)
         VALUES
             (#{userId}, #{actionType}, #{money}, #{actionTime}, #{curBalance}, #{alipayStatus});

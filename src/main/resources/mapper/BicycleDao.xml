@@ -11,10 +11,10 @@
         <result column="lockId" jdbcType="INTEGER" property="lockId"/>
         <result column="locationX" jdbcType="DECIMAL" property="locationX"/>
         <result column="locationY" jdbcType="DECIMAL" property="locationY"/>
-        <result column="status" jdbcType="BIT" property="status"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
         <result column="energy" jdbcType="REAL" property="energy"/>
     </resultMap>
-    <insert id="insert" parameterType="Bicycle">
+    <insert id="insert" parameterType="Bicycle" useGeneratedKeys="true" keyProperty="bicycleId">
         INSERT INTO bicycle
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="bicycleId != null ">
@@ -23,9 +23,7 @@
             <if test="from != null ">
                 `from`,
             </if>
-            <!--<if test="time != null ">-->
             `time`,
-            <!--</if>-->
             <if test="photoUrl != null ">
                 photoUrl,
             </if>
@@ -52,21 +50,28 @@
             <if test="from != null ">
                 #{from,jdbcType=INTEGER},
             </if>
-            current_timestamp(),
+            <choose>
+                <when test="time != null ">
+                    #{time, jdbcType=TIMESTAMP},
+                </when>
+                <when test="time == null ">
+                    current_timestamp(),
+                </when>
+            </choose>
             <if test="photoUrl != null ">
-                #{photourl,jdbcType=VARCHAR},
+                #{photoUrl,jdbcType=VARCHAR},
             </if>
             <if test="lockId != null ">
                 #{lockId,jdbcType=INTEGER},
             </if>
             <if test="locationX != null ">
-                #{locationx,jdbcType=DECIMAL},
+                #{locationX,jdbcType=DECIMAL},
             </if>
             <if test="locationY != null ">
-                #{locationy,jdbcType=DECIMAL},
+                #{locationY,jdbcType=DECIMAL},
             </if>
             <if test="status != null ">
-                #{status,jdbcType=BIT},
+                #{status,jdbcType=TINYINT},
             </if>
             <if test="energy != null ">
                 #{energy,jdbcType=REAL},
@@ -101,7 +106,7 @@
         DELETE FROM bicycle
         WHERE bicycleId = #{bicycleId}
     </delete>
-    <select id="selectByPage" resultType="Bicycle">
+    <select id="selectByPage" resultType="Bicycle" resultMap="BicycleResult">
         SELECT *
         FROM bicycle
         LIMIT #{start}, #{pageSize}

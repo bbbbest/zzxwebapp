@@ -12,7 +12,7 @@
         <result column="adminRoleId" jdbcType="INTEGER" property="adminRoleId"/>
     </resultMap>
 
-    <insert id="insert" parameterType="Admin" statementType="PREPARED">
+    <insert id="insert" parameterType="Admin" statementType="PREPARED" useGeneratedKeys="true" keyProperty="adminId">
         INSERT INTO admin (userName, password, name
         <if test="adminRoleId != null ">
             ,adminRoleId

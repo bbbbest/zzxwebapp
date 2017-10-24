@@ -14,7 +14,8 @@
         <result column="status" jdbcType="TINYINT" property="status"/>
         <result column="replyContent" jdbcType="VARCHAR" property="replyContent"/>
     </resultMap>
-    <insert id="insert" parameterType="Activity" statementType="PREPARED" keyColumn="activityId" flushCache="true">
+    <insert id="insert" parameterType="Activity" statementType="PREPARED" useGeneratedKeys="true"
+            keyProperty="activityId" flushCache="true">
         # 需要在业务层检查数据合法性
         INSERT INTO activity
         (userId, title, createTime, startTime, endTime, description, status,

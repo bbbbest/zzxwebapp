@@ -13,7 +13,8 @@
         <result column="replyContent" jdbcType="VARCHAR" property="replyContent"/>
         <result column="replyTime" jdbcType="TIMESTAMP" property="replyTime"/>
     </resultMap>
-    <insert id="insert" parameterType="Advice" flushCache="true" statementType="PREPARED">
+    <insert id="insert" parameterType="Advice" flushCache="true" statementType="PREPARED" useGeneratedKeys="true"
+            keyProperty="adviceId">
         INSERT INTO advise (creator, title, content, createTime, status)
         VALUES (#{creator}, #{title}, #{content}, #{createTime}, #{status})
     </insert>

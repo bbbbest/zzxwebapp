@@ -3,20 +3,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.zzx.dao.UserDao">
-    <insert id="insert" parameterType="User" statementType="PREPARED" flushCache="true">
+    <resultMap id="UserResult" type="User">
+        <id column="userId" jdbcType="INTEGER" property="userId"/>
+        <result column="userName" jdbcType="VARCHAR" property="username"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="cardNumber" jdbcType="INTEGER" property="cardNumber"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="balance" jdbcType="DECIMAL" property="balance"/>
+    </resultMap>
+    <insert id="insert" parameterType="User" statementType="PREPARED" flushCache="true" useGeneratedKeys="true"
+            keyProperty="userId">
         INSERT INTO
-        `user`(userName, `password`, `name`,cardNumber,score, phone, `status`, balance)
+        `user`(userName, `password`, `name`,
+        <if test="cardNumber != null ">
+            cardNumber,
+        </if>
+        score, phone, `status`, balance)
         VALUES
         <trim prefix="(" suffix=")">
             #{username}, #{password}, #{name},
-            <choose>
-                <when test="cardNumber != null ">
-                    #{cardNumber},
-                </when>
-                <when test="cardNumber == null ">
-                    -1,
-                </when>
-            </choose>
+            <if test="cardNumber != null ">
+                #{cardNumber},
+            </if>
             #{score}, #{phone}, #{status}, #{balance}
         </trim>
     </insert>
@@ -55,9 +65,40 @@
         SELECT count(*)
         FROM user
     </select>
-    <select id="selectByPage" resultType="User" statementType="PREPARED" useCache="true">
-        SELECT *
+    <sql id="Info">
+        SELECT
+        userId,
+        userName,
+        `name`,
+        cardNumber,
+        phone,
+        score,
+        phone,
+        `status`,
+        balance
         FROM user
+    </sql>
+    <select id="selectByPage" resultType="User" statementType="PREPARED" resultMap="UserResult" useCache="true">
+        <include refid="Info"/>
         LIMIT #{start}, #{pageSize}
+    </select>
+    <select id="select" resultType="User" parameterType="User" resultMap="UserResult">
+        <include refid="Info"/>
+        WHERE
+        <choose>
+            <when test="userId != null">
+                userId = #{userId, jdbcType=INTEGER}
+            </when>
+            <when test="username != null">
+                userName = #{username, jdbcType=VARCHAR}
+            </when>
+            <when test="phone != null">
+                phone = #{phone, jdbcType=VARCHAR}
+            </when>
+        </choose>
+    </select>
+    <select id="selectByUsernameAndPassword" resultType="User" resultMap="UserResult">
+        <include refid="Info"/>
+        WHERE userName = #{username} AND password = #{password}
     </select>
 </mapper>

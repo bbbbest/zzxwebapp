@@ -45,6 +45,6 @@ public class User implements Validatable {
 
     @Override
     public boolean canSelect() {
-        return ObjectUtil.anyNonNull(userId, username, cardNumber);
+        return ObjectUtil.anyNonNull(userId, username, phone, cardNumber);
     }
 }
